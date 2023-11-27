@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:better_player/better_player.dart';
 import 'package:better_player_example/constants.dart';
+import 'package:better_player_example/custom_video_player/video_page.dart';
 import 'package:better_player_example/pages/auto_fullscreen_orientation_page.dart';
 import 'package:better_player_example/pages/basic_player_page.dart';
 import 'package:better_player_example/pages/cache_page.dart';
@@ -41,6 +43,7 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage> {
   @override
   void initState() {
+    caching();
     _saveAssetSubtitleToFile();
     _saveAssetVideoToFile();
     _saveAssetEncryptVideoToFile();
@@ -48,26 +51,42 @@ class _WelcomePageState extends State<WelcomePage> {
     super.initState();
   }
 
+  void caching(){
+    BetterPlayerController? _controller;
+    BetterPlayerConfiguration betterPlayerConfiguration =
+    BetterPlayerConfiguration(
+      aspectRatio: 9 / 16,
+      fit: BoxFit.cover,
+      handleLifecycle: true,
+      autoPlay: true,
+      looping: true,
+    );
+    _controller = BetterPlayerController(betterPlayerConfiguration);
+
+    _controller.preCache(BetterPlayerDataSource(
+      BetterPlayerDataSourceType.network,
+      'http://sample.vodobox.com/skate_phantom_flex_4k/skate_phantom_flex_4k.m3u8',
+      cacheConfiguration: BetterPlayerCacheConfiguration(
+        useCache: true,
+        preCacheSize: 10 * 1024 * 1024,
+        maxCacheSize: 10 * 1024 * 1024,
+        maxCacheFileSize: 10 * 1024 * 1024,
+        ///Android only option to use cached video between app sessions
+        key: "testCacheKey",
+      ),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Better Player Example"),
+        title: Text("Better Player"),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: ListView(
           children: [
-            const SizedBox(height: 8),
-            Image.asset(
-              "assets/logo.png",
-              height: 200,
-              width: 200,
-            ),
-            Text(
-              "Welcome to Better Player example app. Click on any element below to see example.",
-              style: TextStyle(fontSize: 16),
-            ),
             const SizedBox(height: 8),
             ...buildExampleElementWidgets()
           ],
@@ -78,37 +97,37 @@ class _WelcomePageState extends State<WelcomePage> {
 
   List<Widget> buildExampleElementWidgets() {
     return [
-      _buildExampleElementWidget("Basic player", () {
+     /* _buildExampleElementWidget("Basic player", () {
         _navigateToPage(BasicPlayerPage());
       }),
       _buildExampleElementWidget("Normal player", () {
         _navigateToPage(NormalPlayerPage());
-      }),
-      _buildExampleElementWidget("Controls configuration", () {
+      }),*/
+      /*buildExampleElementWidget("Controls configuration", () {
         _navigateToPage(ControlsConfigurationPage());
       }),
       _buildExampleElementWidget("Event listener", () {
         _navigateToPage(EventListenerPage());
-      }),
-      _buildExampleElementWidget("Subtitles", () {
+      }),*/
+      /*_buildExampleElementWidget("Subtitles", () {
         _navigateToPage(SubtitlesPage());
       }),
       _buildExampleElementWidget("Resolutions", () {
         _navigateToPage(ResolutionsPage());
-      }),
-      _buildExampleElementWidget("HLS subtitles", () {
+      }),*/
+      /*_buildExampleElementWidget("HLS Video", () {
         _navigateToPage(HlsSubtitlesPage());
-      }),
-      _buildExampleElementWidget("HLS tracks", () {
+      }),*/
+/*      _buildExampleElementWidget("HLS tracks", () {
         _navigateToPage(HlsTracksPage());
       }),
       _buildExampleElementWidget("HLS Audio", () {
         _navigateToPage(HlsAudioPage());
-      }),
-      _buildExampleElementWidget("Cache", () {
+      }),*/
+      _buildExampleElementWidget("Hls Cache", () {
         _navigateToPage(CachePage());
       }),
-      _buildExampleElementWidget("Playlist", () {
+      /*_buildExampleElementWidget("Playlist", () {
         _navigateToPage(PlaylistPage());
       }),
       _buildExampleElementWidget("Video in list", () {
@@ -122,14 +141,14 @@ class _WelcomePageState extends State<WelcomePage> {
       }),
       _buildExampleElementWidget("Controller controls", () {
         _navigateToPage(ControllerControlsPage());
-      }),
-      _buildExampleElementWidget("Auto fullscreen orientation", () {
+      }),*/
+      /*_buildExampleElementWidget("Auto fullscreen orientation", () {
         _navigateToPage(AutoFullscreenOrientationPage());
-      }),
-      _buildExampleElementWidget("Overridden aspect ratio", () {
+      }),*/
+      /*_buildExampleElementWidget("Overridden aspect ratio", () {
         _navigateToPage(OverriddenAspectRatioPage());
-      }),
-      _buildExampleElementWidget("Notifications player", () {
+      }),*/
+      /*_buildExampleElementWidget("Notifications player", () {
         _navigateToPage(NotificationPlayerPage());
       }),
       _buildExampleElementWidget("Reusable video list", () {
@@ -149,11 +168,17 @@ class _WelcomePageState extends State<WelcomePage> {
       }),
       _buildExampleElementWidget("Picture in Picture", () {
         _navigateToPage(PictureInPicturePage());
-      }),
-      _buildExampleElementWidget("Controls always visible", () {
+      }),*/
+      /*_buildExampleElementWidget("Controls Hide", () {
         _navigateToPage(ControlsAlwaysVisiblePage());
+      }),*/
+
+      _buildExampleElementWidget("Hls Reels", () {
+        _navigateToPage(VideoReelPage());
       }),
-      _buildExampleElementWidget("DRM", () {
+
+
+     /* _buildExampleElementWidget("DRM", () {
         _navigateToPage(DrmPage());
       }),
       _buildExampleElementWidget("ClearKey DRM", () {
@@ -161,7 +186,7 @@ class _WelcomePageState extends State<WelcomePage> {
       }),
       _buildExampleElementWidget("DASH", () {
         _navigateToPage(DashPage());
-      }),
+      }),*/
     ];
   }
 

@@ -45,13 +45,19 @@ class _HlsSubtitlesPageState extends State<HlsSubtitlesPage> {
             controlsConfiguration: controlsConfiguration,
             aspectRatio: 16 / 9,
             fit: BoxFit.contain,
+            autoPlay: true,
             subtitlesConfiguration: BetterPlayerSubtitlesConfiguration(
               fontSize: 16.0,
             ));
     BetterPlayerDataSource dataSource = BetterPlayerDataSource(
-        BetterPlayerDataSourceType.network, Constants.hlsPlaylistUrl,
+        BetterPlayerDataSourceType.network, Constants.phantomVideoUrl,
         useAsmsSubtitles: true);
     _betterPlayerController = BetterPlayerController(betterPlayerConfiguration);
+
+    _betterPlayerController.setControlsVisibility(false);
+    _betterPlayerController.setControlsAlwaysVisible(false);
+    _betterPlayerController.setControlsEnabled(false);
+
     _betterPlayerController.setupDataSource(dataSource);
     super.initState();
   }

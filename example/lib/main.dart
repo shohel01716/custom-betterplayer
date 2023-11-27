@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
         },
         child: MaterialApp(
           title: 'Better player demo',
+          debugShowCheckedModeBanner: false,
           localizationsDelegates: [
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,

@@ -15,11 +15,17 @@ class _ControlsAlwaysVisiblePageState extends State<ControlsAlwaysVisiblePage> {
   void initState() {
     BetterPlayerConfiguration betterPlayerConfiguration =
         BetterPlayerConfiguration(
-      aspectRatio: 16 / 9,
-      fit: BoxFit.contain,
+      aspectRatio: 9 / 16,
+      fit: BoxFit.cover,
       handleLifecycle: true,
+          autoPlay: true
     );
     _betterPlayerController = BetterPlayerController(betterPlayerConfiguration);
+
+    _betterPlayerController.setControlsVisibility(false);
+    _betterPlayerController.setControlsAlwaysVisible(false);
+    _betterPlayerController.setControlsEnabled(false);
+
     _setupDataSource();
     super.initState();
   }
@@ -27,7 +33,8 @@ class _ControlsAlwaysVisiblePageState extends State<ControlsAlwaysVisiblePage> {
   void _setupDataSource() async {
     BetterPlayerDataSource dataSource = BetterPlayerDataSource(
       BetterPlayerDataSourceType.network,
-      Constants.elephantDreamVideoUrl,
+      //'https://dyx282ufjlfk4.cloudfront.net/products/15133/videos/Snapinsta.app_video_403713817_1434880537434441_986734261436097531_n.mp4',
+      Constants.phantomVideoUrl,
     );
     _betterPlayerController.setupDataSource(dataSource);
   }
@@ -36,30 +43,18 @@ class _ControlsAlwaysVisiblePageState extends State<ControlsAlwaysVisiblePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Controls always visible"),
+        title: Text("Controls Hide"),
       ),
-      body: Column(
-        children: [
-          const SizedBox(height: 8),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Text(
-              "Controls are always visible. Click on button below to"
-              " enable/disable this mode.",
-              style: TextStyle(fontSize: 16),
-            ),
-          ),
-          AspectRatio(
-            aspectRatio: 16 / 9,
+      body: SizedBox.expand(
+        child: FittedBox(
+          fit: BoxFit.cover,
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.width,
             child: BetterPlayer(controller: _betterPlayerController),
+            // ),
           ),
-          ElevatedButton(
-              onPressed: () {
-                _betterPlayerController.setControlsAlwaysVisible(
-                    !(_betterPlayerController.controlsAlwaysVisible));
-              },
-              child: Text("Toggle always visible controls"))
-        ],
+        ),
       ),
     );
   }

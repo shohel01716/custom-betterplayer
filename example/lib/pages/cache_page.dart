@@ -17,9 +17,11 @@ class _CachePageState extends State<CachePage> {
         BetterPlayerConfiguration(
       aspectRatio: 16 / 9,
       fit: BoxFit.contain,
+          autoPlay: true
     );
     _betterPlayerDataSource = BetterPlayerDataSource(
       BetterPlayerDataSourceType.network,
+      //"https://dyx282ufjlfk4.cloudfront.net/products/15133/videos/Snapinsta.app_video_403713817_1434880537434441_986734261436097531_n.mp4",
       Constants.phantomVideoUrl,
       cacheConfiguration: BetterPlayerCacheConfiguration(
         useCache: true,
@@ -32,6 +34,11 @@ class _CachePageState extends State<CachePage> {
       ),
     );
     _betterPlayerController = BetterPlayerController(betterPlayerConfiguration);
+
+    _betterPlayerController.setControlsVisibility(false);
+    _betterPlayerController.setControlsAlwaysVisible(false);
+    _betterPlayerController.setControlsEnabled(false);
+    _betterPlayerController.setupDataSource(_betterPlayerDataSource);
     super.initState();
   }
 
