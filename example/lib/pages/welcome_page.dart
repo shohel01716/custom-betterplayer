@@ -3,34 +3,7 @@ import 'dart:io';
 import 'package:better_player/better_player.dart';
 import 'package:better_player_example/constants.dart';
 import 'package:better_player_example/custom_video_player/video_page.dart';
-import 'package:better_player_example/pages/auto_fullscreen_orientation_page.dart';
-import 'package:better_player_example/pages/basic_player_page.dart';
 import 'package:better_player_example/pages/cache_page.dart';
-import 'package:better_player_example/pages/clearkey_page.dart';
-import 'package:better_player_example/pages/controller_controls_page.dart';
-import 'package:better_player_example/pages/controls_always_visible_page.dart';
-import 'package:better_player_example/pages/controls_configuration_page.dart';
-import 'package:better_player_example/pages/custom_controls/change_player_theme_page.dart';
-import 'package:better_player_example/pages/dash_page.dart';
-import 'package:better_player_example/pages/drm_page.dart';
-import 'package:better_player_example/pages/event_listener_page.dart';
-import 'package:better_player_example/pages/fade_placeholder_page.dart';
-import 'package:better_player_example/pages/hls_audio_page.dart';
-import 'package:better_player_example/pages/hls_subtitles_page.dart';
-import 'package:better_player_example/pages/hls_tracks_page.dart';
-import 'package:better_player_example/pages/memory_player_page.dart';
-import 'package:better_player_example/pages/normal_player_page.dart';
-import 'package:better_player_example/pages/notification_player_page.dart';
-import 'package:better_player_example/pages/overridden_aspect_ratio_page.dart';
-import 'package:better_player_example/pages/overriden_duration_page.dart';
-import 'package:better_player_example/pages/placeholder_until_play_page.dart';
-import 'package:better_player_example/pages/playlist_page.dart';
-import 'package:better_player_example/pages/resolutions_page.dart';
-import 'package:better_player_example/pages/reusable_video_list/reusable_video_list_page.dart';
-import 'package:better_player_example/pages/rotation_and_fit_page.dart';
-import 'package:better_player_example/pages/subtitles_page.dart';
-import 'package:better_player_example/pages/video_list/video_list_page.dart';
-import 'package:better_player_example/pages/picture_in_picture_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
@@ -51,10 +24,10 @@ class _WelcomePageState extends State<WelcomePage> {
     super.initState();
   }
 
-  void caching(){
+  void caching() {
     BetterPlayerController? _controller;
     BetterPlayerConfiguration betterPlayerConfiguration =
-    BetterPlayerConfiguration(
+        BetterPlayerConfiguration(
       aspectRatio: 9 / 16,
       fit: BoxFit.cover,
       handleLifecycle: true,
@@ -65,12 +38,13 @@ class _WelcomePageState extends State<WelcomePage> {
 
     _controller.preCache(BetterPlayerDataSource(
       BetterPlayerDataSourceType.network,
-      'http://sample.vodobox.com/skate_phantom_flex_4k/skate_phantom_flex_4k.m3u8',
+      'https://stream.mux.com/JEv1F9o5CbrPx4EzPr00Y01QtQ7bGZDjtraXuMmrJEWO00.m3u8',
       cacheConfiguration: BetterPlayerCacheConfiguration(
         useCache: true,
         preCacheSize: 10 * 1024 * 1024,
         maxCacheSize: 10 * 1024 * 1024,
         maxCacheFileSize: 10 * 1024 * 1024,
+
         ///Android only option to use cached video between app sessions
         key: "testCacheKey",
       ),
@@ -97,7 +71,7 @@ class _WelcomePageState extends State<WelcomePage> {
 
   List<Widget> buildExampleElementWidgets() {
     return [
-     /* _buildExampleElementWidget("Basic player", () {
+      /* _buildExampleElementWidget("Basic player", () {
         _navigateToPage(BasicPlayerPage());
       }),
       _buildExampleElementWidget("Normal player", () {
@@ -177,8 +151,7 @@ class _WelcomePageState extends State<WelcomePage> {
         _navigateToPage(VideoReelPage());
       }),
 
-
-     /* _buildExampleElementWidget("DRM", () {
+      /* _buildExampleElementWidget("DRM", () {
         _navigateToPage(DrmPage());
       }),
       _buildExampleElementWidget("ClearKey DRM", () {

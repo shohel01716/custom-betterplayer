@@ -1,6 +1,8 @@
 import 'dart:developer';
+
 import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
+
 class VideoPlayerWidget extends StatefulWidget {
   final String reelUrl;
 
@@ -30,15 +32,17 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget>
 
   bool _videoInitialized = false;
 
- void initializeController() async {
-   debugPrint("initializeVideoController:: ${widget.reelUrl}");
+  void initializeController() async {
+    debugPrint("initializeVideoController:: ${widget.reelUrl}");
     if (mounted) {
       BetterPlayerConfiguration betterPlayerConfiguration =
-      BetterPlayerConfiguration(
-          aspectRatio: 9 / 16,
-          fit: BoxFit.cover,
-          handleLifecycle: true,
-          autoPlay: true,
+          BetterPlayerConfiguration(
+        aspectRatio: 9 / 18,
+        /*aspectRatio: MediaQuery.of(context).size.width /
+            MediaQuery.of(context).size.height,*/
+        fit: BoxFit.fill,
+        handleLifecycle: true,
+        autoPlay: true,
         looping: true,
       );
       _controller = BetterPlayerController(betterPlayerConfiguration);
@@ -55,15 +59,15 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget>
             _isPlaying = true;
           });
         }
-        if(_controller!.isVideoInitialized()!){
+        if (_controller!.isVideoInitialized()!) {
           _videoInitialized = true;
         }
       });
-   }
+    }
   }
 
   void _setupDataSource() async {
-   dataSource = BetterPlayerDataSource(
+    dataSource = BetterPlayerDataSource(
       BetterPlayerDataSourceType.network,
       //'https://dyx282ufjlfk4.cloudfront.net/products/15133/videos/Snapinsta.app_video_403713817_1434880537434441_986734261436097531_n.mp4',
       widget.reelUrl,
@@ -78,9 +82,8 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget>
       ),
     );
 
-   _controller!.preCache(dataSource);
+    _controller!.preCache(dataSource);
     _controller?.setupDataSource(dataSource);
-
   }
 
   bool _isPlaying = false;
@@ -146,7 +149,8 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget>
                           color: Colors.amber,
                         ),
                       )
-                    :*/ BetterPlayer(controller: _controller!),
+                    :*/
+                BetterPlayer(controller: _controller!),
                 /*!_videoInitialized
                     ? const Center(
                         child: CircularProgressIndicator(

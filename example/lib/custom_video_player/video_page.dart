@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:preload_page_view/preload_page_view.dart';
+
 import 'video_player.dart';
 
 class VideoReelPage extends StatefulWidget {
-
   @override
   _VideoReelPageState createState() => _VideoReelPageState();
 }
@@ -25,9 +25,8 @@ class _VideoReelPageState extends State<VideoReelPage> {
   }
 
   static final reels = <String>[
-    'http://sample.vodobox.com/skate_phantom_flex_4k/skate_phantom_flex_4k.m3u8',
-    'https://diceyk6a7voy4.cloudfront.net/e78752a1-2e83-43fa-85ae-3d508be29366/hls/fitfest-sample-1_Ott_Hls_Ts_Avc_Aac_16x9_1280x720p_30Hz_6.0Mbps_qvbr.m3u8',
-    'http://sample.vodobox.com/skate_phantom_flex_4k/skate_phantom_flex_4k.m3u8',
+    'https://stream.mux.com/JEv1F9o5CbrPx4EzPr00Y01QtQ7bGZDjtraXuMmrJEWO00.m3u8',
+    //'http://sample.vodobox.com/skate_phantom_flex_4k/skate_phantom_flex_4k.m3u8',
     'https://diceyk6a7voy4.cloudfront.net/e78752a1-2e83-43fa-85ae-3d508be29366/hls/fitfest-sample-1_Ott_Hls_Ts_Avc_Aac_16x9_1280x720p_30Hz_6.0Mbps_qvbr.m3u8',
   ];
 
